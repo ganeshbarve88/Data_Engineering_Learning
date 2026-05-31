@@ -1,0 +1,160 @@
+1. login / signup for Snowflake trial or standard 30 days free trial
+
+2. Open SQL Worksheet and run below command
+-- Use the account admin role to set things up
+USE ROLE ACCOUNTADMIN;
+
+-- Create a dedicated role for dbt
+CREATE ROLE IF NOT EXISTS dbt_role;
+GRANT ROLE dbt_role TO USER <student_snowflake_username>;
+
+-- Create a dedicated warehouse
+CREATE WAREHOUSE IF NOT EXISTS dbt_wh 
+  WITH WAREHOUSE_SIZE = 'XSMALL' 
+  AUTO_SUSPEND = 60 
+  AUTO_RESUME = TRUE;
+GRANT USAGE ON WAREHOUSE dbt_wh TO ROLE dbt_role;
+
+-- Create the database and raw/marts schemas
+CREATE DATABASE IF NOT EXISTS dbt_demo_db;
+GRANT ALL ON DATABASE dbt_demo_db TO ROLE dbt_role;
+
+USE DATABASE dbt_demo_db;
+CREATE SCHEMA IF NOT EXISTS raw;
+CREATE SCHEMA IF NOT EXISTS marts;
+GRANT ALL ON SCHEMA raw TO ROLE dbt_role;
+GRANT ALL ON SCHEMA marts TO ROLE dbt_role;
+
+3. login into Github and create a repo and clone it in VScode
+
+install Github desktop & VS Code
+
+git clone : 
+    git clone https://github.com/username/repository.git
+
+Install Git : (Unix)
+    sudo apt update
+    sudo apt install git
+
+Install Python : (Unix)
+    sudo apt install
+    sudo apt upgrade
+    python3 --version
+    sudo apt install python3
+
+---Install Python
+Step 1: Download the Python Installer
+Go to the official website: python.org/downloads
+
+Click the yellow button to download the latest version for Windows.
+
+Step 2: Run the Installer (The Crucial Step)
+Open the downloaded .exe file. Before clicking "Install Now", look at the very bottom of the installer window:
+
+⚠️ CRUCIAL: You must check the box that says "Add python.exe to PATH".
+
+If you do not check this box, Windows will continue to say "python is not available." Once checked, click Install Now.
+
+python --version
+
+pip --version
+
+
+Alternative: The Microsoft Store Route (Fastest Backup)
+If the installer gives you any trouble, an even easier option for beginners on Windows is to open the Microsoft Store app on the computer, 
+search for "Python", and hit Get on the latest official version (e.g., Python 3.12). 
+The Microsoft Store version automatically configures the PATH variable perfectly without any extra checkboxes.
+
+Install Pip : (Unix)
+    sudo apt update
+    sudo apt install python3-pip
+    pip3 --version
+
+Virtual Env : 
+    sudo apt install python3-venv
+    python3 -m venv dbt-env
+    source dbt-env/bin/activate
+
+    dbt-env\Scripts\Activate.ps1 (for Windows)
+
+Install Power DBT User in VS code extension
+
+Install DBT Package :
+pip install dbt-snowflake
+
+dbt --version
+
+
+====================================================================
+
+
+
+Run the initialize command:
+
+Bash
+dbt init my_snowflake_project
+
+The terminal will ask a series of setup questions. Answer them precisely as follows:
+
+Which database would you like to use? Type 1 or snowflake.
+
+account: Enter the Snowflake Account Identifier. (This is found in the lower-left corner of the Snowflake UI. It looks like xy12345.us-east-1 or abc12345. Do not include snowflakecomputing.com).
+
+user: Enter the Snowflake username.
+
+authentication: Type 1 or password.
+
+password: Enter the Snowflake account password.
+
+role: dbt_role (The role created during the worksheet setup).
+
+warehouse: dbt_wh
+
+database: dbt_demo_db
+
+schema: marts
+
+threads: 4
+
+====================================================
+Test and Verify the Connection
+dbt separates sensitive login credentials from the actual code folder. The connection details were automatically written to a global file on the Windows machine at C:\Users\<Windows_Username>\.dbt\profiles.yml.
+
+C:\Users\ganes\.dbt\profiles.yml
+
+Move your terminal into the newly created project folder:
+
+Bash
+cd my_snowflake_project
+Run the debug check to test if VS Code can talk directly to the Snowflake cloud warehouse:
+
+Bash
+dbt debug
+Look for a green success message at the bottom that says "All checks passed!". This confirms that the repository is linked, the files are ready, and your student's computer is successfully talking to Snowflake.
+
+=====================================================
+
+Create a Sample Model :
+
+{{config(materialized='table')}}
+
+with mock_data as (
+    select 1 as ID,
+    'Hello World' as Greeting,
+    current_date() as Created_At
+    
+    union all
+
+    select 2 as ID,
+    'Welcome to DBT Projects' as Greeting,
+    current_date() as Created_At
+    
+)
+
+select * from mock_data
+
+dbt compile 
+
+dbt run 
+
+SELECT * FROM dbt_demo_db.marts.hello_world;
