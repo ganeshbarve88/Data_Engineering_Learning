@@ -158,3 +158,13 @@ dbt compile
 dbt run 
 
 SELECT * FROM dbt_demo_db.marts.hello_world;
+
+git status 
+
+git add -A 
+
+git status 
+
+git commit -m "Added-snowflake-project"
+
+git push 
