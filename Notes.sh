@@ -117,4 +117,34 @@ sudo snap install dbeaver-ce --classic
 
 dbeaver-ce &
 
+========Running Python Script=====================================
+
+python C:\Users\ganes\Documents\GitHub\Data_Engineering_Learning\Scripts\Python\psql_extract_to_csv.py
+
+==================Installing Airflow====================================
+Install Docker Desktop (if you haven't).
+
+Create an Airflow folder in your project root:
+
+Bash
+mkdir airflow && cd airflow
+Download the official Docker Compose file:
+
+Bash
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.yaml'
+Initialize Airflow:
+
+Bash
+echo "AIRFLOW_UID=50000" > .env
+docker-compose up airflow-init
+docker-compose up -d
+Access: Open your browser to http://localhost:8080. Default login is airflow / airflow.
+
+create dag
+
+Build and Run: Run docker-compose build and docker-compose up -d.
+
+To apply the new volume mappings, you must restart Docker. Run these commands inside your airflow/ directory:
+docker-compose down
+docker-compose up -d
 

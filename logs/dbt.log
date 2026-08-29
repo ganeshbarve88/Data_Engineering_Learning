@@ -259,3 +259,32 @@ Happy modeling!
 [0m10:45:48.653329 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002753028D5B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027530021910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000275300397B0>]}
 [0m10:45:48.653703 [debug] [MainThread]: Flushing usage events
 [0m10:45:50.017424 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:11:21.611907 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FA431E900>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FA08FB4D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FA63C3B10>]}
+
+
+============================== 16:11:21.619997 | 937633ea-f7ee-416a-80d2-4679c2b3ed12 ==============================
+[0m16:11:21.619997 [info ] [MainThread]: Running with dbt=1.11.11
+[0m16:11:21.620430 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\ganes\\.dbt', 'use_colors': 'True', 'invocation_command': 'dbt init my_bigquery_project', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m16:11:21.663813 [debug] [MainThread]: Starter project path: C:\Users\ganes\Documents\GitHub\Data_Engineering_Learning\dbt-env\Lib\site-packages\dbt\include\starter_project
+[0m16:11:21.678491 [info ] [MainThread]: 
+Your new dbt project "my_bigquery_project" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:11:21.678919 [info ] [MainThread]: Setting up your profile.
+[0m16:16:39.859958 [info ] [MainThread]: Profile my_bigquery_project written to C:\Users\ganes\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m16:16:39.861262 [debug] [MainThread]: Command `dbt init` succeeded at 16:16:39.861128 after 318.36 seconds
+[0m16:16:39.861587 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FBF730640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FA6292450>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014FBF6D3240>]}
+[0m16:16:39.861882 [debug] [MainThread]: Flushing usage events
+[0m16:16:41.271432 [debug] [MainThread]: An error was encountered while trying to flush usage events

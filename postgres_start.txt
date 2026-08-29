@@ -1,0 +1,95 @@
+1. Install Postgres from internet
+
+https://www.postgresql.org/download/
+
+2. Find your bin folder
+First, you need to find where PostgreSQL was installed. By default, it usually installs to a path like:
+C:\Program Files\PostgreSQL\<version>\bin
+
+Open File Explorer and go to C:\Program Files\PostgreSQL.
+
+Open the folder with your version number (e.g., 16).
+
+Open the bin folder.
+
+Click the address bar at the top and copy the full path (e.g., C:\Program Files\PostgreSQL\16\bin).
+
+3. Add it to your Windows PATH
+Now, tell Windows to look in that folder whenever you type psql:
+
+Press the Windows Key and type "env".
+
+Select "Edit the system environment variables".
+
+A small window will pop up; click the "Environment Variables..." button at the bottom right.
+
+In the "System variables" section (the bottom box), scroll down until you find a variable named Path. Select it and click "Edit...".
+
+Click "New" on the right-hand side.
+
+Paste the path you copied in Step 1 (the one ending in \bin).
+
+Click OK on every open window to save your changes.
+
+4. Restart your terminal
+Crucial: Windows will not see the changes to the PATH variable in any terminals that were already open.
+
+Close all open VS Code windows and any open Command Prompt or PowerShell windows.
+
+Reopen VS Code.
+
+Open a new terminal (Ctrl + ~) and type:
+
+Bash
+psql --version
+
+
+1. Create User and Database using psqlOpen your terminal (Command Prompt or PowerShell) and connect to your PostgreSQL instance as the default superuser:  Bash :psql -U postgres
+Once you are in the postgres=# shell, run these commands (replace my_user and my_password with your preferred values):Create the user:SQL : CREATE USER barveg WITH ENCRYPTED PASSWORD 'mypassword';
+*   **Create the database**:
+    ```sql
+    CREATE DATABASE pagila_db;
+Grant privileges:SQL : GRANT ALL PRIVILEGES ON DATABASE pagila_db TO barveg;
+*   **Exit the shell**:
+    ```sql
+        \q
+2. Import your Pagila Schema and DataNow that the database exists, you can import your files. Run this command from your terminal (outside of the psql shell):
+
+GRANT USAGE ON SCHEMA public TO barveg; GRANT SELECT ON ALL TABLES IN SCHEMA public TO barveg; GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO barveg;
+
+Bash : psql -U barveg -d pagila_db -f C:/Users/ganes/Documents/GitHub/Data_Engineering_Learning/pagila-schema.sql
+psql -U my_user -d pagila_db -f path/to/your/pagila_data.sql
+Note: You may be prompted to enter the password you created for my_user.  
+
+psql -U postgres -d pagila_db -f C:/Users/ganes/Documents/GitHub/Data_Engineering_Learning/pagila-schema.sql
+psql -U postgres -d pagila_db -f C:/Users/ganes/Documents/GitHub/Data_Engineering_Learning/pagila-insert-data.sql
+
+3. Connect in DBeaver  
+DBeaver provides a graphical interface to interact with your new database.  
+Open DBeaver.  Click the "New Database Connection" button (the plug icon in the top left).  
+Select PostgreSQL from the list of database types and click Next.  
+Enter your connection details:  
+Host: localhost 
+Port: 5432 (default)Database: pagila_db
+Username: my_user 
+Password: my_password 
+Click Test Connection to ensure DBeaver can reach your database.  Click Finish. 
+You will now see your pagila_db in the Database Navigator, where you can explore your tables and run queries
+
+REASSIGN OWNED BY postgres TO barveg;
+
+GRANT ALL ON SCHEMA public TO barveg;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO barveg;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO barveg;
+
+-- Change ownership of all existing tables
+REASSIGN OWNED BY postgres TO barveg;
+
+-- Grant all permissions on existing schema and future objects
+GRANT ALL ON SCHEMA public TO barveg;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO barveg;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO barveg;
+
+-- This ensures future tables created by the user are also accessible
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO barveg;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO barveg;

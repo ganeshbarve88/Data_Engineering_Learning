@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: pagila_bronze            # The alias you will use in your SQL
+    database: dbt-bq-demo-498611  # Your GCP Project ID
+    schema: DE_Learn_RAW           # The BigQuery dataset Airbyte writes to
+    tables:
+      - name: customer
+      - name: payment
+      - name: film
+      - name: rental

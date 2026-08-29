@@ -31,6 +31,7 @@ install Github desktop & VS Code
 
 git clone : 
     git clone https://github.com/username/repository.git
+    git branch
 
 Install Git : (Unix)
     sudo apt update
@@ -73,9 +74,26 @@ Install Pip : (Unix)
 Virtual Env : 
     sudo apt install python3-venv
     python3 -m venv dbt-env
-    source dbt-env/bin/activate
+    python -m venv dbt-env
+    source dbt-env/bin/activate (unix)
 
     dbt-env\Scripts\Activate.ps1 (for Windows)
+
+py -m venv dbt-env
+
+If you turned off all aliases and nothing is working, go back to that setting and turn only the one for "python.exe" back On, but keep "python3.exe" Off.
+
+Verify the installation:
+If py -m venv dbt-env still fails, it is possible the Python installation was a "minimal" one.
+
+Go to Settings > Apps > Installed Apps.
+
+Find Python 3.x.x in the list.
+
+Click Modify > Modify > make sure "pip" and "tcl/tk and IDLE" and "py launcher" are checked.
+
+Click Install to update the existing installation.
+
 
 Install Power DBT User in VS code extension
 
