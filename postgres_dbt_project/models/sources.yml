@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: family_fin_raw
+    schema: family_fin_details_raw
+    tables:
+      - name: raw_users
+      - name: raw_bank_details
+      - name: raw_deposit_details
+      - name: raw_bnk_to_cust_relationship
